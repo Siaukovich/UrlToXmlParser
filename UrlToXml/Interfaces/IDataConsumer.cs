@@ -5,10 +5,10 @@
     /// <summary>
     /// Interface that every data consumer must implement.
     /// </summary>
-    /// <typeparam name="T">
+    /// <typeparam name="TInput">
     /// Type of data.
     /// </typeparam>
-    public interface IDataConsumer<in T>
+    public interface IDataConsumer<in TInput>
     {
         /// <summary>
         /// Consume data to some destination.
@@ -19,6 +19,6 @@
         /// <param name="destination">
         /// Data destination.
         /// </param>
-        void Consume(IEnumerable<T> data, string destination);
+        void Consume(IEnumerable<TInput> data, string destination);
     }
 }

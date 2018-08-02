@@ -1,14 +1,12 @@
 ﻿namespace UrlToXml.Interfaces
 {
-    using System;
-
     /// <summary>
-    /// Interface that every data validator class must implement.
+    /// Interface that every single data validator must implement.
     /// </summary>
-    /// <typeparam name="T">
+    /// <typeparam name="TData">
     /// Type of data.
     /// </typeparam>
-    public interface IDataValidator<in T>
+    public interface ISingleDataValidator<in TData>
     {
         /// <summary>
         /// Validates data.
@@ -21,6 +19,6 @@
         /// Bool value represents if data is valid and string contains 
         /// error message, or null if data is valid.
         /// </returns>
-        (bool isValid, string errorMessage) Validate(T data);
+        (bool isValid, string errorMessage) Validate(TData data);
     }
 }

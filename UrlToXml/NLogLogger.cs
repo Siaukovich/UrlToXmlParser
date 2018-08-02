@@ -14,7 +14,7 @@
         /// The lazy logger for singleton behavior.
         /// </summary>
         private static readonly Lazy<NLogLogger> LazyLogger =
-            new Lazy<NLogLogger>(LazyThreadSafetyMode.PublicationOnly);
+            new Lazy<NLogLogger>(() => new NLogLogger());
 
         /// <summary>
         /// NLog logger.
