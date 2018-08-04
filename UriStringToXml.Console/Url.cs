@@ -10,11 +10,6 @@
     public class Url
     {
         /// <summary>
-        /// List of parameters.
-        /// </summary>
-        private readonly List<(string key, string value)> parameters;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Url"/> class.
         /// </summary>
         /// <param name="uriString">
@@ -39,8 +34,14 @@
             this.Host = uri.Host;
             this.UrlPath = uri.AbsolutePath;
 
+            if (uri.Query == string.Empty)
+            {
+                this.Parameters = new List<(string key, string value)>();
+                return;
+            }
+
             // Substring(1) to void first '?'.
-            this.parameters = uri.Query.Substring(1)
+            this.Parameters = uri.Query.Substring(1)
                                        .Split('$')
                                        .Select(SplitToPairs)
                                        .ToList();
@@ -75,6 +76,6 @@
         /// <summary>
         /// Gets parameters.
         /// </summary>
-        public IEnumerable<(string key, string value)> Parameters => this.parameters.AsEnumerable();
+        public List<(string key, string value)> Parameters { get; }
     }
 }
