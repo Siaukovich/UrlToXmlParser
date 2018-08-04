@@ -20,16 +20,16 @@
         /// <param name="consumer">
         /// Data consumer.
         /// </param>
-        /// <param name="validator">
-        /// Data validator.
+        /// <param name="mapper">
+        /// Data mapper.
         /// </param>
-        /// <param name="parser">
-        /// Data parser.
+        /// <param name="logger">
+        /// Logger.
         /// </param>
         void Parse(
             IDataProvider<TInitial> provider,
             IDataConsumer<TTarget> consumer,
-            IGroupDataValidator<TInitial> validator,
-            IDataParser<TInitial, TTarget> parser);
+            IMapper<TInitial, TTarget> mapper,
+            ILogger logger = null);
     }
 }
