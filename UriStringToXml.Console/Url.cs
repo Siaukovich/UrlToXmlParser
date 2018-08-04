@@ -42,7 +42,7 @@
 
             // Substring(1) to void first '?'.
             this.Parameters = uri.Query.Substring(1)
-                                       .Split('$')
+                                       .Split('&')
                                        .Select(SplitToPairs)
                                        .ToList();
 

@@ -13,24 +13,6 @@
     public class FileDataProvider : IDataProvider<string>
     {
         /// <summary>
-        /// Lazy data provider for singleton behavior.
-        /// </summary>
-        private static readonly Lazy<FileDataProvider> LazyProvider = 
-            new Lazy<FileDataProvider>(() => new FileDataProvider());
-
-        /// <summary>
-        /// Prevents a default instance of the <see cref="FileDataProvider"/> class from being created.
-        /// </summary>
-        private FileDataProvider()
-        {
-        }
-
-        /// <summary>
-        /// Singleton instance of FileDataProvider.
-        /// </summary>
-        public static FileDataProvider Instance => LazyProvider.Value;
-
-        /// <summary>
         /// Provides data from given file.
         /// </summary>
         /// <param name="fileFullPath">
