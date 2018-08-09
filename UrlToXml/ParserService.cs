@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Configuration;
 
+    using Ninject;
+
     /// <summary>
     /// The parser service.
     /// </summary>
@@ -30,6 +32,7 @@
         /// <param name="logger">
         /// Logger.
         /// </param>
+        [Inject]
         public void Parse(
             IDataProvider<TInitial> provider, 
             IDataConsumer<TTarget> consumer, 

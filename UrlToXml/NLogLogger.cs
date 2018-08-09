@@ -11,27 +11,9 @@
     public class NLogLogger : ILogger
     {
         /// <summary>
-        /// The lazy logger for singleton behavior.
-        /// </summary>
-        private static readonly Lazy<NLogLogger> LazyLogger =
-            new Lazy<NLogLogger>(() => new NLogLogger());
-
-        /// <summary>
         /// NLog logger.
         /// </summary>
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
-        /// <summary>
-        /// Prevents a default instance of the <see cref="NLogLogger"/> class from being created.
-        /// </summary>
-        private NLogLogger()
-        {
-        }
-
-        /// <summary>
-        /// Singleton instance of NLogLogger.
-        /// </summary>
-        public static NLogLogger Instance => LazyLogger.Value;
 
         /// <summary>
         /// Logs information message.

@@ -21,6 +21,17 @@
         public List<ISingleDataValidator<string>> Validators => this.validators.ToList();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="UrlGroupValidator"/> class.
+        /// </summary>
+        /// <param name="validators">
+        /// The validators.
+        /// </param>
+        public UrlGroupValidator(params ISingleDataValidator<string>[] validators)
+        {
+            this.validators.AddRange(validators);
+        }
+
+        /// <summary>
         /// Adds validator.
         /// </summary>
         /// <param name="validator">

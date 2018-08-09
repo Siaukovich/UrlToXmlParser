@@ -1,28 +1,56 @@
 ﻿namespace UriStringToXml.Console
 {
-    using System;
+    using Ninject;
+
     using UrlToXml;
     using UrlToXml.Interfaces;
 
     class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Entry point.
+        /// </summary>
+        private static void Main()
         {
-            IDataProvider<string> provider = new FileDataProvider();
-            IDataConsumer<Url> consumer = new XmlDataConsumer();
+            using (IKernel kernel = new StandardKernel())
+            {
+                SetDependencies(kernel);
 
-            IDataParser<string, Url> parser = new UrlDataParser();
+                kernel.Get<IParserSevice<string, Url>>();
+            }
+        }
 
-            IGroupDataValidator<string> groupValidator = new UrlGroupValidator();
-            groupValidator.AddValidator(new UrlSingleValidator());
+        /// <summary>
+        /// Sets dependencies using Ninject.
+        /// </summary>
+        /// <param name="kernel">
+        /// Ninject's kernel object.
+        /// </param>
+        private static void SetDependencies(IKernel kernel)
+        {
+            kernel.Bind<IDataProvider<string>>()
+                  .To<FileDataProvider>();
 
-            IMapper<string, Url> mapper = new StringToUrlMapper(parser, groupValidator);
+            kernel.Bind<IDataConsumer<Url>>()
+                  .To<XmlDataConsumer>();
 
-            IParserSevice<string, Url> parserService = new ParserService<string, Url>();
+            kernel.Bind<IDataParser<string, Url>>()
+                  .To<UrlDataParser>();
 
-            ILogger logger = NLogLogger.Instance;
+            var validators = new ISingleDataValidator<string>[] { new UrlSingleValidator() };
+            kernel.Bind<IGroupDataValidator<string>>()
+                  .To<UrlGroupValidator>()
+                  .WithConstructorArgument("validators", validators);
 
-            parserService.Parse(provider, consumer, mapper, logger);
+            kernel.Bind<IMapper<string, Url>>()
+                  .To<StringToUrlMapper>();
+
+            kernel.Bind<IParserSevice<string, Url>>()
+                  .To<ParserService<string, Url>>();
+
+            kernel.Bind<ILogger>()
+                  .To<NLogLogger>()
+                  .InSingletonScope();
         }
     }
 }
