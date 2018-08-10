@@ -1,4 +1,4 @@
-﻿namespace UrlToXml.Interfaces
+﻿namespace DataConverter.Base
 {
     /// <summary>
     /// Interface that every data parser class must implement.

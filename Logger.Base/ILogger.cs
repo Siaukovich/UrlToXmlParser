@@ -1,26 +1,19 @@
-﻿namespace UrlToXml
+﻿namespace Logger.Base
 {
     using System;
 
-    using Logger.Base;
-
     /// <summary>
-    /// Logger that uses NLog internally.
+    /// Interface that every logger class must implement.
     /// </summary>
-    public class NLogLogger : ILogger
+    public interface ILogger
     {
-        /// <summary>
-        /// NLog logger.
-        /// </summary>
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
         /// <summary>
         /// Logs information message.
         /// </summary>
         /// <param name="msg">
         /// Message that will be logged.
         /// </param>
-        public void Info(string msg) => Logger.Info(msg);
+        void Info(string msg);
 
         /// <summary>
         /// Logs warning message.
@@ -28,8 +21,8 @@
         /// <param name="msg">
         /// Message that will be logged.
         /// </param>
-        public void Warning(string msg) => Logger.Warn(msg);
-        
+        void Warning(string msg);
+
         /// <summary>
         /// Logs warning message.
         /// </summary>
@@ -39,7 +32,7 @@
         /// <param name="msg">
         /// Message that will be logged.
         /// </param>
-        public void Warning(Exception ex, string msg) => Logger.Warn(ex, msg);
+        void Warning(Exception ex, string msg);
 
         /// <summary>
         /// Logs error message.
@@ -50,6 +43,6 @@
         /// <param name="msg">
         /// Message that will be logged.
         /// </param>
-        public void Error(Exception ex, string msg) => Logger.Error(ex, msg);
+        void Error(Exception ex, string msg);
     }
 }

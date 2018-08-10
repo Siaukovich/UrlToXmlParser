@@ -1,9 +1,8 @@
-﻿namespace UriStringToXml.Console
+﻿namespace UriStringToXml
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using UrlToXml.Interfaces;
+    using DataConverter.Base;
 
     /// <summary>
     /// The url group validator.

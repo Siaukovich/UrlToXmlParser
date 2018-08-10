@@ -1,69 +1,86 @@
-﻿namespace UrlToXml.Interfaces
+﻿namespace UrlToXml
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using DataConverter.Base;
+
+    using Logger.Base;
 
     using Ninject;
 
     /// <summary>
     /// The parser service.
     /// </summary>
-    /// <typeparam name="TInitial">
+    /// <typeparam name="TSource">
     /// Initial representation of TTarget type object.
     /// </typeparam>
     /// <typeparam name="TTarget">
     /// Type of represented object.
     /// </typeparam>
-    public class ParserService<TInitial, TTarget> : IParserSevice<TInitial, TTarget>
+    public class ParserService<TSource, TTarget> : IParserService<TSource, TTarget>
     {
         /// <summary>
-        /// Parses data of type TTarget that given in TInitial type form.
+        /// Data provider.
         /// </summary>
-        /// <param name="provider">
+        private IDataProvider<TSource> provider;
+
+        /// <summary>
+        /// Data consumer.
+        /// </summary>
+        private IDataConsumer<TTarget> consumer;
+
+        /// <summary>
+        /// Data mapper.
+        /// </summary>
+        private IMapper<TSource, TTarget> mapper;
+
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        [Inject]
+        public ILogger Logger { get; set; }
+
+        /// <summary>
+        /// Sets dependencies.
+        /// </summary>
+        /// <param name="dataProvider">
         /// Data provider.
         /// </param>
-        /// <param name="consumer">
+        /// <param name="dataConsumer">
         /// Data consumer.
         /// </param>
-        /// <param name="mapper">
+        /// <param name="dataMapper">
         /// Data mapper.
         /// </param>
         /// <param name="logger">
-        /// Logger.
+        /// The logger.
         /// </param>
         [Inject]
-        public void Parse(
-            IDataProvider<TInitial> provider, 
-            IDataConsumer<TTarget> consumer, 
-            IMapper<TInitial, TTarget> mapper,
-            ILogger logger = null)
+        public void SetDependencies(IDataProvider<TSource> dataProvider, IDataConsumer<TTarget> dataConsumer, IMapper<TSource, TTarget> dataMapper)
         {
-            logger?.Info("ParserService begun to work");
+            this.provider = dataProvider ?? throw new ArgumentNullException(nameof(dataProvider));
+            this.consumer = dataConsumer ?? throw new ArgumentNullException(nameof(dataConsumer));
+            this.mapper   = dataMapper   ?? throw new ArgumentNullException(nameof(dataMapper));
+        }
 
-            if (provider == null)
-            {
-                throw new ArgumentNullException(nameof(provider));
-            }
-
-            if (consumer == null)
-            {
-                throw new ArgumentNullException(nameof(consumer));
-            }
-
-            if (mapper == null)
-            {
-                throw new ArgumentNullException(nameof(mapper));
-            }
+        /// <summary>
+        /// Parses data of type TTarget that given in TInitial type form.
+        /// </summary>
+        public void Parse()
+        {
+            this.Logger?.Info("ParserService begun to work");
 
             string source = ConfigurationManager.AppSettings["source"];
             string destination = ConfigurationManager.AppSettings["destination"];
 
-            IEnumerable<TInitial> data = provider.ProvideData(source);
+            IEnumerable<TSource> data = this.provider.ProvideData(source);
 
-            IEnumerable<TTarget> parsedData = mapper.Map(data, logger);
+            IEnumerable<TTarget> parsedData = this.mapper.Map(data);
 
-            consumer.Consume(parsedData, destination);
+            this.consumer.Consume(parsedData, destination);
+
+            this.Logger?.Info("ParserService stopped to work.");
         }
     }
 }

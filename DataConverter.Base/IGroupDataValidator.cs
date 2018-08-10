@@ -1,7 +1,5 @@
-﻿namespace UrlToXml.Interfaces
+﻿namespace DataConverter.Base
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Interface that every group data validator class must implement.
     /// </summary>
@@ -10,11 +8,6 @@
     /// </typeparam>
     public interface IGroupDataValidator<TSource>
     {
-        /// <summary>
-        /// Gets the data validators.
-        /// </summary>
-        List<ISingleDataValidator<TSource>> Validators { get; }
-
         /// <summary>
         /// Adds validator.
         /// </summary>

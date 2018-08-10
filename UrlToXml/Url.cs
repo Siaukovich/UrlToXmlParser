@@ -1,4 +1,4 @@
-﻿namespace UriStringToXml.Console
+﻿namespace UriStringToXml
 {
     using System;
     using System.Collections.Generic;

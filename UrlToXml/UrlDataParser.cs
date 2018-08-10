@@ -1,9 +1,7 @@
-﻿namespace UriStringToXml.Console
+﻿namespace UriStringToXml
 {
     using System;
-    using System.Threading;
-
-    using UrlToXml.Interfaces;
+    using DataConverter.Base;
 
     /// <summary>
     /// Url data parser.

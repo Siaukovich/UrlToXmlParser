@@ -1,4 +1,4 @@
-﻿namespace UrlToXml.Interfaces
+﻿namespace DataConverter.Base
 {
     /// <summary>
     /// Interface that every parser service must implement.
@@ -9,10 +9,10 @@
     /// <typeparam name="TTarget">
     /// Target type.
     /// </typeparam>
-    public interface IParserSevice<TInitial, TTarget>
+    public interface IParserService<TInitial, TTarget>
     {
         /// <summary>
-        /// Parses information from one format to another.
+        /// Sets dependencies.
         /// </summary>
         /// <param name="provider">
         /// Data provider.
@@ -24,12 +24,16 @@
         /// Data mapper.
         /// </param>
         /// <param name="logger">
-        /// Logger.
+        /// The logger.
         /// </param>
-        void Parse(
+        void SetDependencies(
             IDataProvider<TInitial> provider,
             IDataConsumer<TTarget> consumer,
-            IMapper<TInitial, TTarget> mapper,
-            ILogger logger = null);
+            IMapper<TInitial, TTarget> mapper);
+
+        /// <summary>
+        /// Parses information from one format to another.
+        /// </summary>
+        void Parse();
     }
 }

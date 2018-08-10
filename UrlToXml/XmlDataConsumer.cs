@@ -1,10 +1,9 @@
-﻿namespace UriStringToXml.Console
+﻿namespace UriStringToXml
 {
     using System;
     using System.Collections.Generic;
     using System.Xml.Linq;
-
-    using UrlToXml.Interfaces;
+    using DataConverter.Base;
 
     /// <summary>
     /// Converts passed data to.

@@ -1,8 +1,7 @@
-﻿namespace UriStringToXml.Console
+﻿namespace UriStringToXml
 {
     using System;
-
-    using UrlToXml.Interfaces;
+    using DataConverter.Base;
 
     /// <summary>
     /// Single validator for Url class.

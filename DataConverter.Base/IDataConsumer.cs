@@ -1,4 +1,4 @@
-﻿namespace UrlToXml.Interfaces
+﻿namespace DataConverter.Base
 {
     using System.Collections.Generic;
 

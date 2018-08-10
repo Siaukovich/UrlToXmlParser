@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Threading;
 
-    using UrlToXml.Interfaces;
+    using DataConverter.Base;
 
     /// <summary>
     /// Provides data from file.
